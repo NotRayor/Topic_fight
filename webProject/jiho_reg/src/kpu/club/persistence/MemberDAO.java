@@ -85,19 +85,9 @@ public class MemberDAO {
 				member.setId(res.getString("id"));
 				member.setPassword(res.getString("passwd"));
 				member.setUsername(res.getString("username"));
-				member.setEmail(res.getString("eamil"));
+				member.setEmail(res.getString("email"));
 				member.setNickname(res.getString("nickname"));
 			}
-
-			/*
-			 * member.setId(res.getString("id")); member.setPw(res.getString("passwd"));
-			 * member.setUsername(res.getString("username"));
-			 * member.setSnum(res.getString("snum"));
-			 * member.setDepart(res.getString("depart"));
-			 * member.setMobile(res.getString("mobile"));
-			 * member.setEmail(res.getString("email")); System.out.println("read ID :" +
-			 * member.getId());
-			 */
 			res.close();
 		} catch (Exception e) {
 			// TODO: handle exception

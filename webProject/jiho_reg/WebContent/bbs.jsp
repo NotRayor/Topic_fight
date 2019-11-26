@@ -31,13 +31,12 @@
 		<li class="nav-item">
 			<a class="nav-link" href="bbs.jsp">게시판</a>
 		</li>
-		<li class="nav-item" >
+		<li class="nav-item">
 			<a class="nav-link" href="#">FAQ</a>
 		</li>
 		<li  class="nav-item" id="manage" >
-			<a class="nav-link" href="management.jsp">관리자</a>
+			<a class="nav-link" href="MemberServlet?key=management">관리자</a>
 		</li>
-			
 		<!-- Dropdown -->
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -45,7 +44,8 @@
 			</a>
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href="MemberServlet?key=join">회원가입</a>
-				<a class="dropdown-item" href="MemberServlet?key=login">로그인</a>
+				<a class="dropdown-item" id="login" href="MemberServlet?key=login">로그인</a>
+				<a class="dropdown-item" id="logout" href="#">로그아웃</a>
 			</div>
 		</li>
 	</ul>

@@ -25,7 +25,9 @@
 		<li class="nav-item">
 			<a class="nav-link" href="#">FAQ</a>
 		</li>
-			
+		<li  class="nav-item" id="manage" >
+			<a class="nav-link" href="MemberServlet?key=management">관리자</a>
+		</li>
 		<!-- Dropdown -->
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

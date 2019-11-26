@@ -26,24 +26,24 @@ public class MemberServlet extends HttpServlet {
 
 		String cmd = "";
 		cmd = request.getParameter("key");
-		System.out.println("doGet : " + cmd);
+		System.out.println("doGet:" + cmd);
 
 		if (cmd.equals("login")) {
 			response.sendRedirect("login.jsp");
 		} else if (cmd.equals("join")) {
 			response.sendRedirect("register.html");
-		} else if (cmd.equals("list")) {
+		} else if (cmd.equals("management")) {
 			MemberDAO dao = new MemberDAO();
 
+			System.out.println("managemnet 받음");
 			List<MemberVO> list = dao.getmemberList();
 			request.setAttribute("memberList", list);
-
-			RequestDispatcher view = request.getRequestDispatcher("student_list.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("management.jsp");
 			view.forward(request, response);
 		} else if (cmd.equals("update")) {
 			MemberDAO dao = new MemberDAO();
-			MemberVO student = dao.read(request.getParameter("id"));
-			request.setAttribute("student", student);
+			MemberVO member = dao.read(request.getParameter("id"));
+			request.setAttribute("member", member);
 			RequestDispatcher view = request.getRequestDispatcher("update.jsp");
 			view.forward(request, response);
 		}
@@ -102,10 +102,12 @@ public class MemberServlet extends HttpServlet {
 			else
 				message = "수정이 실패했습니다.";
 
-			request.setAttribute("message", message);
-			request.setAttribute("student", vo);
+			//request.setAttribute("message", message);
 
-			RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+			List<MemberVO> list = dao.getmemberList();
+			request.setAttribute("memberList", list);
+			
+			RequestDispatcher view = request.getRequestDispatcher("management.jsp");
 			view.forward(request, response);
 		} 
 		// 로그인 확인
