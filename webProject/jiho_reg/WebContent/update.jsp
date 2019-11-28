@@ -3,6 +3,7 @@
 <%@page import="kpu.club.domain.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +22,17 @@
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link" href="bbs.jsp">게시판</a>
+			<a class="nav-link" href="BoardServlet?key=board">게시판</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#">FAQ</a>
+			<a class="nav-link" href="BoardServlet?key=FAQ">FAQ</a>
 		</li>
-			
+		<c:if test="${userID eq 'admin' }">
+			<li  class="nav-item" id="manage" >
+				<a class="nav-link" href="MemberServlet?key=management">관리자</a>
+			</li>
+		</c:if>
+		
 		<!-- Dropdown -->
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -34,8 +40,14 @@
 			</a>
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href="MemberServlet?key=join">회원가입</a>
-				<a class="dropdown-item" id="login" href="MemberServlet?key=login">로그인</a>
-				<a class="dropdown-item" id="logout" href="#">로그아웃</a>
+				<c:choose>
+					<c:when test="${userID eq null }">
+						<a class="dropdown-item" id="login" href="MemberServlet?key=login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<a class="dropdown-item" id="logout" href="MemberServlet?key=logout">로그아웃</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</li>
 	</ul>

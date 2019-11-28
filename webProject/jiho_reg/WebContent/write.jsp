@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,12 +20,17 @@
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
-			<a class="nav-link" href="bbs.jsp">게시판</a>
+			<a class="nav-link" href="BoardServlet?key=board">게시판</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#">FAQ</a>
+			<a class="nav-link" href="BoardServlet?key=FAQ">FAQ</a>
 		</li>
-			
+		<c:if test="${userID eq 'admin' }">
+			<li  class="nav-item" id="manage" >
+				<a class="nav-link" href="MemberServlet?key=management">관리자</a>
+			</li>
+		</c:if>
+		
 		<!-- Dropdown -->
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -32,8 +38,14 @@
 			</a>
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href="MemberServlet?key=join">회원가입</a>
-				<a class="dropdown-item" id="login" href="MemberServlet?key=login">로그인</a>
-				<a class="dropdown-item" id="logout" href="#">로그아웃</a>
+				<c:choose>
+					<c:when test="${userID eq null }">
+						<a class="dropdown-item" id="login" href="MemberServlet?key=login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<a class="dropdown-item" id="logout" href="MemberServlet?key=logout">로그아웃</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</li>
 	</ul>
@@ -89,13 +101,14 @@
 <HR>
 <H2>글쓰기</H2>
 <HR>
- <form action="" method="post">
+ <form action="BoardServlet?key=write" method="post">
+ 	<input type="hidden" name="userID" value="<%=session.getAttribute("userID")%>"/> 
  	<div class="form-row">
  		<div class="form-group col-sm5">
- 			<input type="text" name="topic1" placeholder="주제1">
+ 			<input type="text" name="bbs_topic1" placeholder="주제1">
  		</div>
  		<div class="form-group col-sm5">
- 			<input type="text" name="topic2" placeholder="주제2">
+ 			<input type="text" name="bbs_topic2" placeholder="주제2">
  		</div>
  	</div>
  	<div class="form-row">
@@ -128,28 +141,6 @@ $(document).ready(function() {
 });
 
 </script>
-<%
-if(session.getAttribute("userID") != null){
-	%>
-	<script>
-		$('#login').hide();
-		$('#logout').click(function(){
-			<%
-				session.invalidate();
-			%>
-			history.go(0);
-		});
-	</script>
-	<%
-}
-else{
-	%>
-	<script>
-		$('#logout').hide();
-	</script>
-	<%
-}
-%>
 
 </body>
 </html>

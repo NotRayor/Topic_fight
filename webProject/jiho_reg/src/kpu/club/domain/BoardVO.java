@@ -7,6 +7,7 @@ public class BoardVO {
 	String bbs_content;
 	String bbs_date;
 	String bbs_name;
+	
 	public int getBbs_id() {
 		return bbs_id;
 	}

@@ -5,23 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결과화면</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 
+<title>글쓰기</title>
+
 </head>
 <body>
-<%
-if(request.getAttribute("userID")!= null){
-	session.setAttribute("userID",request.getAttribute("userID"));
-	session.setMaxInactiveInterval(6000);
-	System.out.print(session.getAttribute("userID") + " Session 생성 \n");
-}else{
-	System.out.print("Session 생성 실패 \n");
-}
 
-%>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
 	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
@@ -59,26 +52,46 @@ if(request.getAttribute("userID")!= null){
 	</ul>
 </nav>
 
-
+<!-- 내용 -->
+<section class="container-fluid col-sm-8">
+	<HR>
+	<H2 class="text-center">${bbs.bbs_topic1 } vs ${bbs.bbs_topic2 }</H2>
+	<HR>
+	<div class="container col-sm5">
+		<div class="row">
+			<p>${bbs.bbs_content }</p><BR>
+		</div>
 	
+		<div class="row">
+			<c:choose>
+				<c:when test="${bbs.bbs_name eq userID}">
+					<a class="btn btn-primary m-1" href="">Modified</a>
+					<a class="btn btn-warning m-1" href="">Remove</a>	
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-danger m-1" id="reportBtn">Report</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</div>
 
-<!-- 내용  -->
-<div class = "container col-md-2">
-	<HR>
-	<H2>로그인 결과</H2>
-	<HR>
-	<p>${message}</p>
-</div>
-
-
-<!-- 애니매이션 담당 JQUERY -->
-<script src="./js/jquery.min.js"></script> 
-
-<!-- 추가적 애니메이션 담당 popper -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+</section>
  
-<!-- 부트스트랩 JS  -->
-<script src="./js/bootstrap.min.js"></script>
+
+ <!-- 애니매이션 담당 JQUERY -->
+ <script src="./js/jquery.min.js"></script> 
+ 
+ <!-- 추가적 애니메이션 담당 popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
+  
+ <!-- 부트스트랩 JS  -->
+ <script src="./js/bootstrap.min.js"></script>
+
+
+<script>
+
+
+</script>
 
 </body>
 </html>

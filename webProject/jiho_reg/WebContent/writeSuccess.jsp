@@ -1,6 +1,3 @@
-<%@page import="kpu.club.domain.BoardVO"%>
-<%@page import="java.util.List"%>
-<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
@@ -13,19 +10,10 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 
- <!-- 애니매이션 담당 JQUERY -->
- <script src="./js/jquery.min.js"></script> 
- 
- <!-- 추가적 애니메이션 담당 popper -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
-  
- <!-- 부트스트랩 JS  -->
- <script src="./js/bootstrap.min.js"></script>
- 
-<title>게시판</title>
+<title>글쓰기</title>
+
 </head>
 <body>
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
 	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
@@ -63,42 +51,10 @@
 	</ul>
 </nav>
 
-
 <!-- 내용  -->
-<section class="container-fluid col-sm-4">
-<HR>
-<H2>게시판</H2>
-<HR>
-<a class="btn btn-info btn-lg float-sm-right m-1" href="write.jsp"><span class="glyphicon glyphicon-pencil"></span>Write</a>
-<BR>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">주제1</th>
-      <th scope="col">주제2</th>
-      <th scope="col">작성자</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% 
-  List<BoardVO> list = (List<BoardVO>)request.getAttribute("boardList");
-  for(BoardVO bbs : list){
-	  request.setAttribute("bbs", bbs);
-  %>
-    <tr>
-      <th scope="row"><a href="BoardServlet?key=view&id=${bbs.bbs_id }">${bbs.bbs_id }</a></th>
-      <td>${bbs.bbs_topic1 }</td>
-      <td>${bbs.bbs_topic2 }</td>
-      <td>${bbs.bbs_name }</td>
-    </tr>
-    <%
-  }
-    %>
-  </tbody>
-</table>
-</section>
- 
+<div class = "container-fluid">
+	<button type="button" class="btn btn-primary" id="registerBtn">등록하기</button>
+</div>
 
 <!-- The Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
@@ -109,7 +65,7 @@
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal">등록하기</h5>
 				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">x</span>
+					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			
@@ -141,43 +97,24 @@
 	</div>
 </div>
 
+<section class="container-fluid col-sm-8">
+<HR>
+<H2>글쓰기 결과</H2>
+<HR>
+<p>${message } </p>
 
-<% 
-String userID = null;
+</section>
+ 
 
-// session이 등록됬다면
-if(session.getAttribute("userID") != null){
-	userID = (String)session.getAttribute("userID");
-	System.out.println("Session 이미 존재");
-}
-else{
-	// 세션 없음
-	System.out.println("Session 존재 안함.");
-}
+ <!-- 애니매이션 담당 JQUERY -->
+ <script src="./js/jquery.min.js"></script> 
+ 
+ <!-- 추가적 애니메이션 담당 popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
+  
+ <!-- 부트스트랩 JS  -->
+ <script src="./js/bootstrap.min.js"></script>
 
-// 로그인 안됨
-if(userID == null){
-	PrintWriter script = response.getWriter();
-	
-	script.println("<script>");
-	script.println("alert('로그인을 하십시오.');");
-	script.println("location.href = 'login.jsp'");
-	script.println("</script>");
-	script.close();	
-}
-//admin 계정이 아니라면, 관리자 페이지를 숨긴다.
-else if(!userID.equals("admin")){
-%>
-	<script>
-	$('manage').hide();
-	</script>
-<% 
-}
-else{
-
-}
-
-%>
 
 <script>
 
@@ -189,7 +126,28 @@ $(document).ready(function() {
 });
 
 </script>
-
+<%
+if(session.getAttribute("userID") != null){
+	%>
+	<script>
+		$('#login').hide();
+		$('#logout').click(function(){
+			<%
+				session.invalidate();
+			%>
+			history.go(0);
+		});
+	</script>
+	<%
+}
+else{
+	%>
+	<script>
+		$('#logout').hide();
+	</script>
+	<%
+}
+%>
 
 </body>
 </html>

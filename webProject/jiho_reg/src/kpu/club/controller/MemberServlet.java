@@ -46,6 +46,8 @@ public class MemberServlet extends HttpServlet {
 			request.setAttribute("member", member);
 			RequestDispatcher view = request.getRequestDispatcher("update.jsp");
 			view.forward(request, response);
+		} else if(cmd.equals("logout")) {
+			response.sendRedirect("logoutSuccess.jsp");
 		}
 
 	}

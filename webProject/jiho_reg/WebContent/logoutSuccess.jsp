@@ -13,12 +13,9 @@
 </head>
 <body>
 <%
-if(request.getAttribute("userID")!= null){
-	session.setAttribute("userID",request.getAttribute("userID"));
-	session.setMaxInactiveInterval(6000);
-	System.out.print(session.getAttribute("userID") + " Session 생성 \n");
-}else{
-	System.out.print("Session 생성 실패 \n");
+if(session != null){
+	session.invalidate();
+	System.out.println("Session 로그아웃");
 }
 
 %>
@@ -58,16 +55,14 @@ if(request.getAttribute("userID")!= null){
 		</li>
 	</ul>
 </nav>
-
-
 	
 
 <!-- 내용  -->
-<div class = "container col-md-2">
+<div class = "container col-md-4">
 	<HR>
-	<H2>로그인 결과</H2>
+	<H2>로그아웃</H2>
 	<HR>
-	<p>${message}</p>
+	<p>로그아웃 완료 되었습니다.</p>
 </div>
 
 
