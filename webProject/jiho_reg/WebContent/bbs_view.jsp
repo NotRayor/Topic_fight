@@ -65,11 +65,11 @@
 		<div class="row">
 			<c:choose>
 				<c:when test="${bbs.bbs_name eq userID}">
-					<a class="btn btn-primary m-1" href="">Modified</a>
-					<a class="btn btn-warning m-1" href="">Remove</a>	
+					<a class="btn btn-primary m-1" href="BoardServlet?key=read&id=${bbs.bbs_id }">수정</a>
+					<a class="btn btn-warning m-1" href="BoardServlet?key=delete&id=${bbs.bbs_id }">삭제</a>	
 				</c:when>
 				<c:otherwise>
-					<button type="button" class="btn btn-danger m-1" id="reportBtn">Report</button>
+					<button type="button" class="btn btn-danger m-1" id="reportBtn">신고</button>
 				</c:otherwise>
 			</c:choose>
 		</div>

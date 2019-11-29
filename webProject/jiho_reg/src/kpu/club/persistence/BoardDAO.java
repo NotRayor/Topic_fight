@@ -55,7 +55,6 @@ public class BoardDAO {
 			if(res.next()) {
 				result = res.getString(1);
 			}
-			
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -74,13 +73,13 @@ public class BoardDAO {
 			res = pstmt.executeQuery();
 			
 			if(res.next()) {
+				bbs.setBbs_id(res.getInt("bbs_id"));
 				bbs.setBbs_topic1(res.getString("bbs_topic1"));;
 				bbs.setBbs_topic2(res.getString("bbs_topic2"));
 				bbs.setBbs_content(res.getString("bbs_content"));
 				bbs.setBbs_date(res.getString("bbs_date"));
 				bbs.setBbs_name(res.getString("bbs_name"));
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -93,8 +92,6 @@ public class BoardDAO {
 	public boolean write(BoardVO bbs) {
 		connect();
 		String sql = "INSERT INTO bbs VALUES (?,?,?,?,?,?)";
-		System.out.println(bbs.getBbs_topic1() + bbs.getBbs_name() 
-				+ bbs.getBbs_content());
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -117,10 +114,79 @@ public class BoardDAO {
 		return true;
 	}
 	
+	public boolean delete(int id) {
+		connect();
+		String sql = "DELETE FROM bbs WHERE bbs_id=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}finally {
+			disconnect();
+		}
+		return true;
+	}
+	
+	public BoardVO read(int id) {
+		connect();
+		String sql = "SELECT * FROM bbs WHERE bbs_id=?";
+		BoardVO board = new BoardVO();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			res = pstmt.executeQuery();
+			if(res.next()) {
+				board.setBbs_id(res.getInt("bbs_id"));
+				board.setBbs_topic1(res.getString("bbs_topic1"));
+				board.setBbs_topic2(res.getString("bbs_topic2"));
+				board.setBbs_content(res.getString("bbs_content"));
+				board.setBbs_date(res.getString("bbs_date"));
+				board.setBbs_name(res.getString("bbs_name"));
+				res.close();
+			}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}finally {
+			disconnect();
+		}
+		return board;
+	}
+	
+	public boolean update(BoardVO board) {
+		connect();
+		String sql = "UPDATE bbs SET bbs_topic1=?, bbs_topic2=?, bbs_content=?, bbs_date=? WHERE bbs_id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getBbs_topic1());
+			pstmt.setString(2, board.getBbs_topic2());
+			pstmt.setString(3, board.getBbs_content());
+			pstmt.setString(4, board.getBbs_date());
+			pstmt.setInt(5, board.getBbs_id());
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}finally {
+			disconnect();
+		}
+		return true;
+	}
+	
 	public ArrayList<BoardVO> getBoardList() {
 		connect();
 		ArrayList<BoardVO> boardList = new ArrayList<BoardVO>();
-		String sql = "SELECT * FROM bbs";
+		String sql = "SELECT * FROM bbs ORDER BY bbs_id DESC";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

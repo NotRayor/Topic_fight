@@ -19,7 +19,8 @@ function movePage(){
 </script>
 
 </head>
-<body onLoad="setTimeout('movePage()',5000)">
+<body onLoad="setTimeout('movePage()', 5000)">
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
 	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
@@ -57,57 +58,16 @@ function movePage(){
 	</ul>
 </nav>
 
-<!-- 내용  -->
-<div class = "container-fluid">
-	<button type="button" class="btn btn-primary" id="registerBtn">등록하기</button>
-</div>
-
-<!-- The Modal -->
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-		
-			<!--  Modal Header -->
-			<div class="modal-header">
-				<h5 class="modal-title" id="modal">등록하기</h5>
-				<button type="button" class="close" data-dismiss="modal">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			
-			<!--  Modal body -->
-			<div class="modal-body">
-				<form action="./registerAction.jsp" method="post">
-					<div class="form-row">
-						<div class="form-group col-sm-5">
-							<label>주제1</label>
-							<input type="text" name="courseName" class="form-control">
-						</div>
-						<div class="col-sm-2">
-							VS
-						</div>
-						<div class="form-group col-sm-5">
-							<label>주제2</label>
-							<input type="text" name="courseName" class="form-control">
-						</div>
-					</div>
-				</form>
-			</div>
-			
-			<!--  Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">register</button>				
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-			</div>
+<!-- 내용 -->
+<section class="container-fluid col-sm-8">
+	<HR>
+	<H2 class="text-center">${meesage }</H2>
+	<HR>
+	<div class="container col-sm5">
+		<div class="row">
+			<p>5초 후 게시판으로 이동합니다.</p><BR>
 		</div>
 	</div>
-</div>
-
-<section class="container-fluid col-sm-8">
-<HR>
-<H2>글쓰기 결과</H2>
-<HR>
-<p>${message } </p>
 
 </section>
  
@@ -122,16 +82,6 @@ function movePage(){
  <script src="./js/bootstrap.min.js"></script>
 
 
-<script>
-
-//Modal창을 띄운다.
-$(document).ready(function() {
-	$("#registerBtn").click(function() {
-		$("#registerModal").modal();
-	});
-});
-
-</script>
 
 </body>
 </html>

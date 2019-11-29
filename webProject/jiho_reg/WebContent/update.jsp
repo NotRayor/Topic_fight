@@ -116,32 +116,7 @@ $(document).ready(function() {
 });
 
 </script>
-<%
-if(session.getAttribute("userID") != null){
-	%>
-	<script>
-	$(document).ready(function(){
-		$('#login').hide();
-		$('#logout').click(function(){
-	});
-		<%
-			session.invalidate();
-		%>
-		history.go(0);
-		});
-	</script>
-	<%
-}
-else{
-	%>
-	<script>
-	$(doucment).ready(function(){
-		$('#logout').hide();
-	});
-	</script>
-	<%
-}
-%>
+
 
 </body>
 </html>

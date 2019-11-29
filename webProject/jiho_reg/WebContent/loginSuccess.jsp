@@ -10,8 +10,14 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 
+<script>
+function movePage(){
+	location.href = "index.jsp";
+}
+</script>
+
 </head>
-<body>
+<body onLoad="setTimeout('movePage()',5000)">
 <%
 if(request.getAttribute("userID")!= null){
 	session.setAttribute("userID",request.getAttribute("userID"));

@@ -10,8 +10,14 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="./css/bootstrap.min.css">
 
+<script>
+function movePage(){
+	location.href = "index.jsp";
+}
+</script>
+
 </head>
-<body>
+<body onLoad="setTimeout('movePage()',5000)">
 <%
 if(session != null){
 	session.invalidate();
@@ -62,7 +68,7 @@ if(session != null){
 	<HR>
 	<H2>로그아웃</H2>
 	<HR>
-	<p>로그아웃 완료 되었습니다.</p>
+	<p>5초 후 이동합니다.</p>
 </div>
 
 

@@ -68,40 +68,55 @@ else{
 	</ul>
 </nav>
 
-<section class="container-fluid col-sm-4">
+<section class="container-fluid col-sm-6">
 <HR>
-<H2>토픽 TOP3</H2>
+<H2>FAQ</H2>
 <HR>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">순위</th>
-      <th scope="col">주제1</th>
-      <th scope="col">주제2</th>
-      <th scope="col">작성자</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<div id="accordion">
+  <div class="card">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+        	로그인이 안돼요.
+      </a>
+    </div>
+    <div id="collapseOne" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+        	로그인이 안될 경우에는 아이디와 비밀번호를 다시 한번 확인해주세요. <br>
+        	혹은, 신고를 통해서, 아이디가 삭제된 경우 일 수 있습니다. <br>
+        	만약, 확인 결과 문제가 없다면 <br>
+        	고객센터 010-2103-5030으로 문의를 주세요. <br>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+         	회원탈퇴는 어떻게 하나요?
+      </a>
+    </div>
+    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+         	회원 분이 직접 회원탈퇴하는 기능은 아직 없습니다. <br>
+         	게시글에 글을 남겨주시면 관리자가 직접 회원을 삭제하도록 하겠습니다. <br>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+               신고를 하면 언제 처리가 되나요?
+      </a>
+    </div>
+    <div id="collapseThree" class="collapse" data-parent="#accordion">
+      <div class="card-body">
+        	신고를 받을 경우 관리자가 일주일 이내 확인을 합니다. <br>
+        	다만 한번의 신고로, 신고 대상자를 탈퇴시키지는 않고, 누적이 되어야합니다.<br>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 
 

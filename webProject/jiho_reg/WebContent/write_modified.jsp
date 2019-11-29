@@ -12,14 +12,8 @@
 
 <title>글쓰기</title>
 
-<script>
-function movePage(){
-	location.href = "BoardServlet?key=board";
-}
-</script>
-
 </head>
-<body onLoad="setTimeout('movePage()',5000)">
+<body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
 	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
@@ -105,9 +99,24 @@ function movePage(){
 
 <section class="container-fluid col-sm-8">
 <HR>
-<H2>글쓰기 결과</H2>
+<H2>글쓰기</H2>
 <HR>
-<p>${message } </p>
+ <form action="BoardServlet?key=update&id=${bbs.bbs_id }" method="post">
+ 	<input type="hidden" name="userID" value="<%=session.getAttribute("userID")%>"/> 
+ 	<div class="form-row">
+ 		<div class="form-group col-sm5">
+ 			<input type="text" name="bbs_topic1" placeholder="주제1" value=${bbs.bbs_topic1 }>
+ 		</div>
+ 		<div class="form-group col-sm5">
+ 			<input type="text" name="bbs_topic2" placeholder="주제2" value=${bbs.bbs_topic2 }>
+ 		</div>
+ 	</div>
+ 	<div class="form-row">
+ 		<textarea class="form-control" rows="5" name="bbs_content" placeholder="내용...">${bbs.bbs_content }</textarea>
+ 	</div>
+ 	<br>
+ 	<button type="submit" class="btn btn-primary">Submit</button>
+ </form>
 
 </section>
  

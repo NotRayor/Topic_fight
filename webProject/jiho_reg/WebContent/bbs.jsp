@@ -65,7 +65,7 @@
 
 
 <!-- 내용  -->
-<section class="container-fluid col-sm-4">
+<section class="container-fluid col-sm-8">
 <HR>
 <H2>게시판</H2>
 <HR>
@@ -78,6 +78,7 @@
       <th scope="col">주제1</th>
       <th scope="col">주제2</th>
       <th scope="col">작성자</th>
+      <th scope="col">작성시간</th>
     </tr>
   </thead>
   <tbody>
@@ -91,6 +92,7 @@
       <td>${bbs.bbs_topic1 }</td>
       <td>${bbs.bbs_topic2 }</td>
       <td>${bbs.bbs_name }</td>
+      <td>${bbs.bbs_date }</td>
     </tr>
     <%
   }
