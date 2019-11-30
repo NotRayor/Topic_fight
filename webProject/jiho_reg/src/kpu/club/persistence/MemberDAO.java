@@ -139,11 +139,32 @@ public class MemberDAO {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("update 에러");
 			e.printStackTrace();
 			return false;
+		}finally {
+			disconnect();
 		}
 		return true;
+	}
+	
+	public boolean delete(MemberVO mem) {
+		connect();
+		String sql = "DELETE FROM jsp_member WHERE id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,  mem.getId());
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}finally {
+			disconnect();
+		}
+		
+		return true;
+	
 	}
 
 	public ArrayList<MemberVO> getmemberList() {

@@ -18,7 +18,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
-	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
+	<a class="navbar-brand" href="BoardServlet?key=index">Topic Fight</a>
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
@@ -54,11 +54,7 @@
 </nav>
 
 
-<!-- 내용  -->
-<div class = "container-fluid">
-	<button type="button" class="btn btn-primary" id="registerBtn">등록하기</button>
-</div>
-
+<!-- 내용 -->
 <section class="container-fluid col-sm-8">
 <HR>
 <H2>관리자 페이지</H2>
@@ -80,7 +76,7 @@
 		request.setAttribute("mem",mem);
 		%>
 		<tr>
-			<td><a href="MemberServlet?key=update&id=${mem.id }" target= "self">${mem.id}</a></td>
+			<td><a href="MemberServlet?key=update&id=${mem.id }">${mem.id}</a></td>
 			<td>${mem.password }</td>
 			<td>${mem.username }</td>
 			<td>${mem.email }</td>

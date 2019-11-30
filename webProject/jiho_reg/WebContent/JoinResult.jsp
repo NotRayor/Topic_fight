@@ -7,15 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>결과화면</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel= "stylesheet" href="css/memdent.css">
+
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+
+
+<script>
+function movePage(){
+	location.href = "index.jsp";
+}
+</script>
 
 </head>
-<body>
+<body onLoad="setTimeout('movePage()',2000)">
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
-	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
+	<a class="navbar-brand" href="BoardServlet?key=index">Topic Fight</a>
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
@@ -50,31 +58,26 @@
 	</ul>
 </nav>
 
-<header>Member List</header>
-<p id=sect><%=request.getAttribute("message") %>	
-<div>
-	<%
-		MemberVO mem = (MemberVO)request.getAttribute("member");
-	%>
-	<a href="welcome.html">메인 페이지로 이동하기</a>
-	<h2>입력 내용</h2>
-	<table>
-		<tr>
-			<td>계정</td><td>비밀번호</td><td>이름</td><td>이메일</td><td>닉네임</td>
-		</tr>
-		<tr>
-			<td><%=mem.getId()%></td>
-			<td><%=mem.getPassword()%></td>
-			<td><%=mem.getUsername()%></td>
-			<td><%=mem.getEmail()%></td>
-			<td><%=mem.getNickname()%></td>
-		</tr>
-	</table>
+
+
+<!-- 내용  -->
+<div class = "container col-md-2">
+	<HR>
+	<H2>회원가입 결과</H2>
+	<HR>
+	<p>${message}</p>
 </div>
-	 <!-- 부트스트랩 JS  -->
-	 <script src="js/bootstrap.js"></script>
-	 <!-- 애니매이션 담당 JQUERY -->
-	 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> 
+
+
+ <!-- 애니매이션 담당 JQUERY -->
+ <script src="./js/jquery.min.js"></script> 
+ 
+ <!-- 추가적 애니메이션 담당 popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
+  
+ <!-- 부트스트랩 JS  -->
+ <script src="./js/bootstrap.min.js"></script>
+
 
 </body>
 </html>

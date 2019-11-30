@@ -1,49 +1,96 @@
 package kpu.club.domain;
 
 public class BoardVO {
-	int bbs_id;
-	String bbs_topic1;
-	String bbs_topic2;
-	String bbs_content;
-	String bbs_date;
-	String bbs_name;
-	
-	public int getBbs_id() {
-		return bbs_id;
+
+    // 게시판 ID 
+    private Integer bbsId;
+
+    // 주제1 
+    private String bbsTopic1;
+
+    // 주제2 
+    private String bbsTopic2;
+
+    // 게시판 내용 
+    private String bbsContent;
+
+    // 생성 시간 
+    private String bbsDate;
+
+    // 작성자ID 
+    private String bbsPostId;
+
+    // 게시판 추천 수 
+    private Integer bbsRecommend;
+    
+    // 게시판 신고 수
+    private Integer bbsReport;
+
+    public Integer getBbsId() {
+        return bbsId;
+    }
+
+    public void setBbsId(Integer bbsId) {
+        this.bbsId = bbsId;
+    }
+
+    public String getBbsTopic1() {
+        return bbsTopic1;
+    }
+
+    public void setBbsTopic1(String bbsTopic1) {
+        this.bbsTopic1 = bbsTopic1;
+    }
+
+    public String getBbsTopic2() {
+        return bbsTopic2;
+    }
+
+    public void setBbsTopic2(String bbsTopic2) {
+        this.bbsTopic2 = bbsTopic2;
+    }
+
+    public String getBbsContent() {
+        return bbsContent;
+    }
+
+    public void setBbsContent(String bbsContent) {
+        this.bbsContent = bbsContent;
+    }
+
+    public String getBbsDate() {
+        return bbsDate;
+    }
+
+    public void setBbsDate(String bbsDate) {
+        this.bbsDate = bbsDate;
+    }
+
+    public String getBbsPostId() {
+        return bbsPostId;
+    }
+
+    public void setBbsPostId(String bbsPostId) {
+        this.bbsPostId = bbsPostId;
+    }
+
+    public Integer getBbsRecommend() {
+        return bbsRecommend;
+    }
+
+    public void setBbsRecommend(Integer bbsRecommend) {
+        this.bbsRecommend = bbsRecommend;
+    }
+
+	public Integer getBbsReport() {
+		return bbsReport;
 	}
-	public void setBbs_id(int bbs_id) {
-		this.bbs_id = bbs_id;
+
+	public void setBbsReport(Integer bbsReport) {
+		this.bbsReport = bbsReport;
 	}
-	public String getBbs_topic1() {
-		return bbs_topic1;
-	}
-	public void setBbs_topic1(String bbs_topic1) {
-		this.bbs_topic1 = bbs_topic1;
-	}
-	public String getBbs_topic2() {
-		return bbs_topic2;
-	}
-	public void setBbs_topic2(String bbs_topic2) {
-		this.bbs_topic2 = bbs_topic2;
-	}
-	public String getBbs_content() {
-		return bbs_content;
-	}
-	public void setBbs_content(String bbs_content) {
-		this.bbs_content = bbs_content;
-	}
-	public String getBbs_date() {
-		return bbs_date;
-	}
-	public void setBbs_date(String bbs_date) {
-		this.bbs_date = bbs_date;
-	}
-	public String getBbs_name() {
-		return bbs_name;
-	}
-	public void setBbs_name(String bbs_name) {
-		this.bbs_name = bbs_name;
-	}
-	
-	
+
+    
+    
+    
 }

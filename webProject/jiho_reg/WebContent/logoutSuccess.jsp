@@ -17,7 +17,7 @@ function movePage(){
 </script>
 
 </head>
-<body onLoad="setTimeout('movePage()',5000)">
+<body onLoad="setTimeout('movePage()',2000)">
 <%
 if(session != null){
 	session.invalidate();
@@ -27,7 +27,7 @@ if(session != null){
 %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
-	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
+	<a class="navbar-brand" href="BoardServlet?key=index">Topic Fight</a>
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
@@ -68,7 +68,7 @@ if(session != null){
 	<HR>
 	<H2>로그아웃</H2>
 	<HR>
-	<p>5초 후 이동합니다.</p>
+	<p>로그아웃이 완료되었습니다.</p>
 </div>
 
 

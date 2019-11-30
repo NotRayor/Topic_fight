@@ -27,11 +27,11 @@ public class MemberServlet extends HttpServlet {
 		String cmd = "";
 		cmd = request.getParameter("key");
 		System.out.println("doGet:" + cmd);
-
+		
 		if (cmd.equals("login")) {
 			response.sendRedirect("login.jsp");
 		} else if (cmd.equals("join")) {
-			response.sendRedirect("register.html");
+			response.sendRedirect("register.jsp");
 		} else if (cmd.equals("management")) {
 			MemberDAO dao = new MemberDAO();
 
@@ -45,6 +45,19 @@ public class MemberServlet extends HttpServlet {
 			MemberVO member = dao.read(request.getParameter("id"));
 			request.setAttribute("member", member);
 			RequestDispatcher view = request.getRequestDispatcher("update.jsp");
+			view.forward(request, response);
+		} else if (cmd.equals("delete")) {
+			MemberVO vo = new MemberVO();
+			MemberDAO dao = new MemberDAO();
+			
+			vo.setId(request.getParameter("id"));
+			
+			dao.delete(vo);
+			
+			List<MemberVO> list = dao.getmemberList();
+			request.setAttribute("memberList", list);
+			
+			RequestDispatcher view = request.getRequestDispatcher("management.jsp");
 			view.forward(request, response);
 		} else if(cmd.equals("logout")) {
 			response.sendRedirect("logoutSuccess.jsp");
@@ -71,7 +84,7 @@ public class MemberServlet extends HttpServlet {
 			MemberVO vo = new MemberVO();
 
 			vo.setId(request.getParameter("id"));
-			vo.setPassword(request.getParameter("password"));
+			vo.setPassword(request.getParameter("passwd"));
 			vo.setEmail(request.getParameter("username"));
 			vo.setNickname(request.getParameter("email"));
 			vo.setUsername(request.getParameter("nickname"));
@@ -85,7 +98,7 @@ public class MemberServlet extends HttpServlet {
 			request.setAttribute("member", vo);
 
 			// 제어권을 넘겨주기 위한 클래스
-			RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("JoinResult.jsp");
 			view.forward(request, response);
 		}
 		// 회원 정보 수정

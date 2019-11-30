@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import kpu.club.domain.BoardVO;
@@ -73,12 +74,13 @@ public class BoardDAO {
 			res = pstmt.executeQuery();
 			
 			if(res.next()) {
-				bbs.setBbs_id(res.getInt("bbs_id"));
-				bbs.setBbs_topic1(res.getString("bbs_topic1"));;
-				bbs.setBbs_topic2(res.getString("bbs_topic2"));
-				bbs.setBbs_content(res.getString("bbs_content"));
-				bbs.setBbs_date(res.getString("bbs_date"));
-				bbs.setBbs_name(res.getString("bbs_name"));
+				bbs.setBbsId(res.getInt("bbs_id"));
+				bbs.setBbsTopic1(res.getString("bbs_topic1"));;
+				bbs.setBbsTopic2(res.getString("bbs_topic2"));
+				bbs.setBbsContent(res.getString("bbs_content"));
+				bbs.setBbsDate(res.getString("bbs_date"));
+				bbs.setBbsPostId(res.getString("bbs_post_id"));
+				bbs.setBbsRecommend(res.getInt("bbs_recommend"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,17 +93,19 @@ public class BoardDAO {
 	
 	public boolean write(BoardVO bbs) {
 		connect();
-		String sql = "INSERT INTO bbs VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO bbs VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, 0); // AUTO INCREMENT
-			pstmt.setString(2, bbs.getBbs_topic1());
-			pstmt.setString(3, bbs.getBbs_topic2());
-			pstmt.setString(4, bbs.getBbs_content());
+			pstmt.setString(2, bbs.getBbsTopic1());
+			pstmt.setString(3, bbs.getBbsTopic2());
+			pstmt.setString(4, bbs.getBbsContent());
 			pstmt.setInt(5, 0); // TRIGGRE
-			pstmt.setString(6, bbs.getBbs_name());
+			pstmt.setString(6, bbs.getBbsPostId());
+			pstmt.setInt(7, 0); // recommend
+			pstmt.setInt(8, 0); // report
 
 			pstmt.executeUpdate();
 
@@ -116,7 +120,7 @@ public class BoardDAO {
 	
 	public boolean delete(int id) {
 		connect();
-		String sql = "DELETE FROM bbs WHERE bbs_id=?";
+		String sql = "DELETE FROM jsp_member WHERE bbs_id=?";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -143,12 +147,13 @@ public class BoardDAO {
 			pstmt.setInt(1, id);
 			res = pstmt.executeQuery();
 			if(res.next()) {
-				board.setBbs_id(res.getInt("bbs_id"));
-				board.setBbs_topic1(res.getString("bbs_topic1"));
-				board.setBbs_topic2(res.getString("bbs_topic2"));
-				board.setBbs_content(res.getString("bbs_content"));
-				board.setBbs_date(res.getString("bbs_date"));
-				board.setBbs_name(res.getString("bbs_name"));
+				board.setBbsId(res.getInt("bbs_id"));
+				board.setBbsTopic1(res.getString("bbs_topic1"));
+				board.setBbsTopic2(res.getString("bbs_topic2"));
+				board.setBbsContent(res.getString("bbs_content"));
+				board.setBbsDate(res.getString("bbs_date"));
+				board.setBbsPostId(res.getString("bbs_post_id"));
+				board.setBbsRecommend(res.getInt("bbs_recommend"));
 				res.close();
 			}
 			
@@ -167,11 +172,11 @@ public class BoardDAO {
 		String sql = "UPDATE bbs SET bbs_topic1=?, bbs_topic2=?, bbs_content=?, bbs_date=? WHERE bbs_id=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getBbs_topic1());
-			pstmt.setString(2, board.getBbs_topic2());
-			pstmt.setString(3, board.getBbs_content());
-			pstmt.setString(4, board.getBbs_date());
-			pstmt.setInt(5, board.getBbs_id());
+			pstmt.setString(1, board.getBbsTopic1());
+			pstmt.setString(2, board.getBbsTopic2());
+			pstmt.setString(3, board.getBbsContent());
+			pstmt.setString(4, board.getBbsDate());
+			pstmt.setInt(5, board.getBbsId());
 			pstmt.executeUpdate();
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -194,12 +199,14 @@ public class BoardDAO {
 			
 			while(res.next()) {
 				BoardVO board = new BoardVO();
-				board.setBbs_id(res.getInt("bbs_id"));
-				board.setBbs_topic1(res.getString("bbs_topic1"));
-				board.setBbs_topic2(res.getString("bbs_topic2"));
-				board.setBbs_content(res.getString("bbs_content"));
-				board.setBbs_date(res.getString("bbs_date"));
-				board.setBbs_name(res.getString("bbs_name"));
+				board.setBbsId(res.getInt("bbs_id"));
+				board.setBbsTopic1(res.getString("bbs_topic1"));
+				board.setBbsTopic2(res.getString("bbs_topic2"));
+				board.setBbsContent(res.getString("bbs_content"));
+				board.setBbsDate(res.getString("bbs_date"));
+				board.setBbsPostId(res.getString("bbs_post_id"));
+				board.setBbsRecommend(res.getInt("bbs_recommend"));
+				board.setBbsReport(res.getInt("bbs_Report"));
 				
 				boardList.add(board);
 			}
@@ -212,12 +219,134 @@ public class BoardDAO {
 		return boardList;
 	}
 
- 
+	public ArrayList<BoardVO> getBoardListTop3() {
+		connect();
+		ArrayList<BoardVO> boardList = new ArrayList<BoardVO>();
+		String sql = "SELECT * FROM bbs ORDER BY bbs_recommend DESC LIMIT 3";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			res = pstmt.executeQuery();
+			
+			while(res.next()) {
+				BoardVO board = new BoardVO();
+				board.setBbsId(res.getInt("bbs_id"));
+				board.setBbsTopic1(res.getString("bbs_topic1"));
+				board.setBbsTopic2(res.getString("bbs_topic2"));
+				board.setBbsContent(res.getString("bbs_content"));
+				board.setBbsDate(res.getString("bbs_date"));
+				board.setBbsPostId(res.getString("bbs_post_id"));
+				board.setBbsRecommend(res.getInt("bbs_recommend"));
+				
+				boardList.add(board);
+			}
+			res.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return boardList;
+	}
+
+	public void deleteRecommend(int id, String userID) {
+		connect();
+		String sql = "DELETE FROM likely WHERE like_id=? AND like_userId=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.setString(2, userID);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		finally {
+			disconnect();
+		}
+		
+	}
+	
+	public int checkRecommend(int id, String userID) {
+		connect();
+		String sql = "INSERT INTO likely VALUES (?,?)";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.setString(2, userID);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			result = 0; // 실패 시, 중복 추천 감소
+		}
+		finally {
+			disconnect();
+		}
+		
+		return result; // 성공 시, 추천 증가
+	}
+	
+	// id board_id
+	// userId memberId
+	public void setRecommend(int id, String userID) {
+		int result = checkRecommend(id, userID);		
+		String sql = "";
+		if(result == 1) 
+			sql = "UPDATE bbs SET bbs_recommend = bbs_recommend+1 WHERE bbs_id = ?";
+		else {
+			sql = "UPDATE bbs SET bbs_recommend = bbs_recommend-1 WHERE bbs_id = ?";
+			deleteRecommend(id, userID);
+		}
+		
+		connect();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+	}
 	
 	
+	public String getNickname(BoardVO bbs) {
+		connect();
+		String result = "";
+		String sql = "SELECT DISTINCT nickname FROM bbs, jsp_member "
+				+ "WHERE bbs.bbs_post_id = ? AND jsp_member.id = ?";
 	
-	
-	
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bbs.getBbsPostId());
+			pstmt.setString(2, bbs.getBbsPostId());
+			res = pstmt.executeQuery();
+			
+			if(res.next()) {
+				result = res.getString("nickname");
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		finally {
+			disconnect();
+		}
+		
+		return result; // 성공 시, 추천 증가
+	}
 	
 	
 }

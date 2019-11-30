@@ -16,7 +16,7 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
-	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
+	<a class="navbar-brand" href="BoardServlet?key=index">Topic Fight</a>
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
@@ -101,18 +101,18 @@
 <HR>
 <H2>글쓰기</H2>
 <HR>
- <form action="BoardServlet?key=update&id=${bbs.bbs_id }" method="post">
+ <form action="BoardServlet?key=update&id=${bbs.bbsId }" method="post">
  	<input type="hidden" name="userID" value="<%=session.getAttribute("userID")%>"/> 
  	<div class="form-row">
  		<div class="form-group col-sm5">
- 			<input type="text" name="bbs_topic1" placeholder="주제1" value=${bbs.bbs_topic1 }>
+ 			<input type="text" name="bbs_topic1" placeholder="주제1" value=${bbs.bbsTopic1 }>
  		</div>
  		<div class="form-group col-sm5">
- 			<input type="text" name="bbs_topic2" placeholder="주제2" value=${bbs.bbs_topic2 }>
+ 			<input type="text" name="bbs_topic2" placeholder="주제2" value=${bbs.bbsTopic2 }>
  		</div>
  	</div>
  	<div class="form-row">
- 		<textarea class="form-control" rows="5" name="bbs_content" placeholder="내용...">${bbs.bbs_content }</textarea>
+ 		<textarea class="form-control" rows="5" name="bbs_content" placeholder="내용...">${bbs.bbsContent }</textarea>
  	</div>
  	<br>
  	<button type="submit" class="btn btn-primary">Submit</button>

@@ -18,7 +18,7 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	<!--  Brand/Logo -->
-	<a class="navbar-brand" href="index.jsp">Topic Fight</a>
+	<a class="navbar-brand" href="BoardServlet?key=index">Topic Fight</a>
 
 	<ul class="navbar-nav">
 		<li class="nav-item">
@@ -89,12 +89,47 @@ MemberVO member = (MemberVO)request.getAttribute("member");
 		<label>닉네임 : </label>
 		<input type="text" class="form-control" name="nickname" value=${member.nickname }>
 	</div>
-	<button type="submit" class="btn btn-primary">Submit</button>	
+	<button type="submit" class="btn btn-primary">Submit</button>
+	<c:if test="${member.id != 'admin' }">
+		<a class="btn btn-danger active" id="deleteCheck" >Delete</a>
+	</c:if>
 </form>
-
+<!-- href="MemberServlet?key=delete&id=${member.id } -->
 
 </section>
  
+<!-- The Modal -->
+<div class="modal fade" id="deleteCheckModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<!--  Modal Header -->
+			<div class="modal-header text-center">
+				<h5 class="modal-title" id="modal">회원삭제</h5>
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">x</span>
+				</button>
+			</div>
+
+			<!--  Modal body -->
+			<div class="modal-body">
+				<form action="./registerAction.jsp" method="post">
+					<div class="form-row">
+						<div class="form-group">
+							<label>${member.id } 님의 계정을 삭제합니까?</label>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<!--  Modal footer -->
+			<div class="modal-footer text-center sm-6" >
+				<a  class="btn btn-danger" href="MemberServlet?key=delete&id=${member.id }" >Yes</a>				
+				<button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+			</div>
+		</div>
+	</div>
+</div>
 
  <!-- 애니매이션 담당 JQUERY -->
  <script src="./js/jquery.min.js"></script> 
@@ -110,8 +145,8 @@ MemberVO member = (MemberVO)request.getAttribute("member");
 
 //Modal창을 띄운다.
 $(document).ready(function() {
-	$("#registerBtn").click(function() {
-		$("#registerModal").modal();
+	$("#deleteCheck").click(function() {
+		$("#deleteCheckModal").modal();
 	});
 });
 
